@@ -1,0 +1,17 @@
+<mftp>
+	<transferName></transferName>
+	<destinations>
+		<destination>
+			<name>DESTINATION_1</name>
+			<url></url>
+		</destination>
+		<destination>
+			<name>DESTINATION_2</name>
+			<url></url>
+		</destination>
+		<destination>
+			<name>DESTINATION_3</name>
+			<url></url>
+		</destination>
+	</destinations>
+</mftp>

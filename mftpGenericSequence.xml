@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="mftpGenericSequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="apos" scope="default" type="STRING" value="'"/>
+    <property expression="fn:concat('gov:mftpConfig/',$ctx:inbound.endpoint.name,'.xml')" name="regFilePattern" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd"/>
+    <property expression="fn:concat('get-property(', get-property('apos'), 'registry', get-property('apos'), ', ', get-property('apos'), get-property('regFilePattern'), get-property('apos'), ')')" name="regFilePathVar" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="evaluate($ctx:regFilePathVar)" name="properties" scope="default" type="OM" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="$ctx:properties//transferName/text()" name="transferName" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="$ctx:properties//destinations" name="destinations" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="get-property('MessageID')" name="MessageID" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="get-property('transport','FILE_URI')" name="sourceFullURL" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="fn:substring-before(get-property('sourceFullURL'), get-property('transport', 'FILE_NAME'))" name="source" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="get-property('destinationURL')" name="destination" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="fn:substring-after(get-property('MessageID'),'uuid:')" name="uri.var.uuid" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <property expression="count($ctx:properties//destination)" name="countDestination" scope="default" type="STRING" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    <log level="custom">
+        <property expression="fn:concat('--- TrackingID: ', get-property('uri.var.uuid'), ' ---', ' TransferName : ', get-property('transferName'), ' ---', ' DestinationCount : ', get-property('countDestination'), ' ---', ' Event  : Starting MFT ---')" name="mftmessage" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    </log>
+    <iterate attachPath="." continueParent="true" expression="$ctx:properties//destination" id="IteratemftpCounter" preservePayload="true" sequential="true" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd">
+        <target>
+            <sequence>
+                <property expression="//destination/name/text()" name="destinationName" scope="default" type="STRING"/>
+                <property expression="//destination/url/text()" name="destinationURL" scope="default" type="STRING"/>
+                <property expression="get-property('transport','FILE_NAME')" name="fileNamePattern" scope="default" type="STRING"/>
+                <property expression="get-property('destinationURL')" name="destination" scope="default" type="STRING"/>
+                <property expression="get-property('transport','FILE_NAME')" name="fileNamePattern" scope="default" type="STRING"/>
+                <log level="custom">
+                    <property expression="fn:concat('--- TrackingID: ', get-property('uri.var.uuid'), ' ---', ' TransferName : ', get-property('transferName'), ' ---', ' FileName : ', get-property('transport', 'FILE_NAME'), ' ---', ' FileSize : ', get-property('transport','FILE_LENGTH'), ' ---', ' Event  : Preparing to send to ', get-property('destination'), ' ---')" name="mftmessage"/>
+                </log>
+                <fileconnector.copy>
+                    <source>{$ctx:source}</source>
+                    <destination>{$ctx:destination}</destination>
+                    <filePattern>{$ctx:fileNamePattern}</filePattern>
+                    <setUserDirIsRoot>true</setUserDirIsRoot>
+                </fileconnector.copy>
+                <log level="custom">
+                    <property expression="fn:concat('--- TrackingID: ', get-property('uri.var.uuid'), ' ---', ' TransferName : ', get-property('transferName'), ' ---', ' FileName : ', get-property('transport', 'FILE_NAME'), ' ---', ' FileSize : ', get-property('transport','FILE_LENGTH'), ' ---', ' Event  : File has been sent to ', get-property('destination'), ' ---')" name="mftmessage"/>
+                </log>
+            </sequence>
+        </target>
+    </iterate>
+    <log level="custom">
+        <property expression="fn:concat('--- TrackingID: ', get-property('uri.var.uuid'), ' ---', ' TransferName : ', get-property('transferName'), ' ---', ' FileName : ', get-property('transport', 'FILE_NAME'), ' ---', ' FileSize : ', get-property('transport','FILE_LENGTH'), ' ---', ' Event  : Completed Transfer. ---')" name="mftmessage" xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns2="http://org.apache.synapse/xsd"/>
+    </log>
+    <drop/>
+</sequence>
