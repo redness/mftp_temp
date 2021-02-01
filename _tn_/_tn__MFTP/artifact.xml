@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="_tn__IEP" groupId="com.example._tn__MFTP.inbound-endpoint" version="1.0.0" type="synapse/inbound-endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/inbound-endpoints/_tn__IEP.xml</file>
+    </artifact>
+</artifacts>
