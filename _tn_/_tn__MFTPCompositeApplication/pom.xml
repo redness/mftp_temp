@@ -9,6 +9,8 @@
   <name>_tn__MFTPCompositeApplication</name>
   <description>_tn__MFTPCompositeApplication</description>
   <properties>
+    <TransferURL>var_transferURK</TransferURL>
+    <TransferFileNamePattern>var_Pattern</TransferFileNamePattern>
     <com.example._tn__MFTP.inbound-endpoint_.__tn__IEP>capp/EnterpriseServiceBus</com.example._tn__MFTP.inbound-endpoint_.__tn__IEP>
     <com.example._tn__MFTP.resource_.__tn__mftp_properties_xml>capp/EnterpriseIntegrator</com.example._tn__MFTP.resource_.__tn__mftp_properties_xml>
     <com.example._tn__MFTP.lib_._fileconnector-connector>capp/EnterpriseServiceBus</com.example._tn__MFTP.lib_._fileconnector-connector>
@@ -97,6 +99,34 @@
               <operation>deploy</operation>
             </CarbonServer>
           </carbonServers>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includes>
+            <include>${basedir}/target/**/*.xml</include>
+          </includes>
+          <replacements>
+            <replacement>
+              <token>@TransferURL</token>
+              <value>${TransferURL}</value>
+            </replacement>
+            <replacement>
+              <token>@TransferFileNamePattern</token>
+              <value>${TransferFileNamePattern}</value>
+            </replacement>
+          </replacements>
         </configuration>
       </plugin>
     </plugins>
