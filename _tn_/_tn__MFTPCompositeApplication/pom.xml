@@ -9,13 +9,33 @@
   <name>_tn__MFTPCompositeApplication</name>
   <description>_tn__MFTPCompositeApplication</description>
   <properties>
-    <TransferURL>var_transferURK</TransferURL>
+    <TransferURL>var_transferURL</TransferURL>
     <TransferFileNamePattern>var_Pattern</TransferFileNamePattern>
     <com.example._tn__MFTP.inbound-endpoint_.__tn__IEP>capp/EnterpriseServiceBus</com.example._tn__MFTP.inbound-endpoint_.__tn__IEP>
     <com.example._tn__MFTP.resource_.__tn__mftp_properties_xml>capp/EnterpriseIntegrator</com.example._tn__MFTP.resource_.__tn__mftp_properties_xml>
     <com.example._tn__MFTP.lib_._fileconnector-connector>capp/EnterpriseServiceBus</com.example._tn__MFTP.lib_._fileconnector-connector>
     <artifact.types>jaggery/app=zip,synapse/priority-executor=xml,synapse/inbound-endpoint=xml,service/rule=aar,synapse/message-store=xml,event/stream=json,service/meta=xml,datasource/datasource=xml,synapse/proxy-service=xml,bpel/workflow=zip,synapse/sequence=xml,synapse/endpointTemplate=xml,carbon/application=car,wso2/gadget=dar,synapse/api=xml,synapse/event-source=xml,synapse/message-processors=xml,event/receiver=xml,lib/dataservice/validator=jar,synapse/template=xml,synapse/endpoint=xml,lib/carbon/ui=jar,lib/synapse/mediator=jar,event/publisher=xml,synapse/local-entry=xml,synapse/task=xml,webapp/jaxws=war,registry/resource=zip,synapse/configuration=xml,service/axis2=aar,synapse/lib=zip,synapse/sequenceTemplate=xml,event/execution-plan=siddhiql,service/dataservice=dbs,web/application=war,lib/library/bundle=jar</artifact.types>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.example._tn__MFTP.inbound-endpoint</groupId>
+      <artifactId>_tn__IEP</artifactId>
+      <version>1.0.0</version>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example._tn__MFTP.lib</groupId>
+      <artifactId>fileconnector-connector</artifactId>
+      <version>3.0.2</version>
+      <type>zip</type>
+    </dependency>
+    <dependency>
+      <groupId>com.example._tn__MFTP.resource</groupId>
+      <artifactId>_tn__mftp_properties_xml</artifactId>
+      <version>1.0.0</version>
+      <type>zip</type>
+    </dependency>
+  </dependencies>
   <repositories>
     <repository>
       <releases>
@@ -101,7 +121,7 @@
           </carbonServers>
         </configuration>
       </plugin>
-      <plugin>
+        <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
         <version>1.5.3</version>
