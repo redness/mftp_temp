@@ -9,6 +9,8 @@
   <name>_tn__MFTP</name>
   <description>_tn__MFTP</description>
   <properties>
+    <transferUri>var_transferURL</transferUri>
+    <transferPattern>var_Pattern</transferPattern>
     <CApp.type>bpel/workflow=zip,lib/registry/filter=jar,webapp/jaxws=war,lib/library/bundle=jar,service/dataservice=dbs,synapse/local-entry=xml,synapse/proxy-service=xml,carbon/application=car,registry/resource=zip,lib/dataservice/validator=jar,synapse/endpoint=xml,web/application=war,lib/carbon/ui=jar,service/axis2=aar,synapse/sequence=xml,synapse/configuration=xml,wso2/gadget=dar,lib/registry/handlers=jar,lib/synapse/mediator=jar,synapse/task=xml,synapse/api=xml,synapse/template=xml,synapse/message-store=xml,synapse/message-processors=xml,synapse/inbound-endpoint=xml</CApp.type>
     <maven.test.skip>false</maven.test.skip>
   </properties>
@@ -122,6 +124,34 @@
           </execution>
         </executions>
         <configuration />
+      </plugin>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <includes>
+            <include>${basedir}/target/**/*.xml</include>
+          </includes>
+          <replacements>
+            <replacement>
+              <token>@transferUri</token>
+              <value>${transferUri}</value>
+            </replacement>
+            <replacement>
+              <token>@transferPattern</token>
+              <value>${transferPattern}</value>
+            </replacement>
+          </replacements>
+        </configuration>
       </plugin>
     </plugins>
   </build>

@@ -13,10 +13,10 @@
         <parameter name="transport.vfs.MoveFailedRecordTimestampFormat">dd-MM-yyyy HH:mm:ss</parameter>
         <parameter name="transport.vfs.FailedRecordNextRetryDuration">3000</parameter>
         <parameter name="transport.vfs.ActionAfterProcess">DELETE</parameter>
-        <parameter name="transport.vfs.FileURI">${TransferURL}</parameter>
+        <parameter name="transport.vfs.FileURI">${transferUri}</parameter>
         <parameter name="transport.vfs.ReplyFileName">response.xml</parameter>
         <parameter name="transport.vfs.DistributedLock">false</parameter>
-        <parameter name="transport.vfs.FileNamePattern">${TransferFileNamePattern}</parameter>
+        <parameter name="transport.vfs.FileNamePattern">${transferPattern}</parameter>
         <parameter name="transport.vfs.Locking">disable</parameter>
         <parameter name="transport.vfs.FileSortAttribute">none</parameter>
         <parameter name="transport.vfs.FileSortAscending">true</parameter>
