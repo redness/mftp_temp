@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><artifacts>
     <artifact name="_tn__mftp_properties_xml" groupId="com.example._tn__MFTP.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
         <item>
-            <file>_tn__mftp_properties.xml</file>
+            <file>_tn_mftp_properties.xml</file>
             <path>/_system/governance/custom</path>
             <mediaType>application/xml</mediaType>
         </item>

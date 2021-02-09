@@ -1,0 +1,26 @@
+<mftp>
+<transferName>TestName</transferName>
+<source>
+	<name>TEST</name>
+    <url>file:///Users/JonathanLewis/mftp/out/one</url>
+    <regex>*.*</regex>
+</source>
+<destinations>
+        <destination>
+            <name>TEST</name>
+            <url>file:///Users/JonathanLewis/mftp/out/one</url>
+        </destination>
+        <destination>
+            <name>TEST2</name>
+            <url>sftp://tes@192.168.0.1/</url>
+        </destination>
+        <destination>
+            <name>TEST3</name>
+            <url>smb://tes@192.168.0.1/</url>
+        </destination>
+        <destination>
+            <name>TEST4</name>
+            <url>ftp://tes@192.168.0.1/</url>
+        </destination>
+</destinations>
+</mftp>
